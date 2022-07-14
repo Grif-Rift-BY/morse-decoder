@@ -36,9 +36,17 @@ const MORSE_TABLE = {
     '----.':  '9',
     '-----':  '0',
 };
+MORSE_TABLE['**********'] = ' ';
 
-function decode(expr) {
-    // write your solution here
+function decode( expr ) {
+    let symbols = expr.match( /.{10}/g );
+    let symbol = '';
+    let string = symbols.reduce( ( sum, currentSymbol ) => {
+        symbol = currentSymbol.replace( /00/g, '' );
+        symbol = symbol.replace( /10/g, '.' ).replace( /11/g, '-' );
+        return sum = sum + MORSE_TABLE[ symbol ];
+    }, '' );
+    return string;
 }
 
 module.exports = {
